@@ -18,7 +18,7 @@ helm_update() {
           exit
       fi
       if [ "$HELM" == "helm_v3" ]; then
-        $HELM uninstall $NAME
+        $HELM uninstall $NAME || true
       else
         $HELM delete $NAME || true
         $HELM "$@" --purge $NAME
@@ -65,7 +65,7 @@ helm_repo_init() {
       $HELM repo update
     fi
   else
-    $HELM repo update --strict || $HELM  repo remove stable
+    $HELM repo update --strict || $HELM repo remove stable
   fi
 
   if [ -n "$REPO" ]; then
